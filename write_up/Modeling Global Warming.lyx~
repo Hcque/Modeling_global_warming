@@ -1,0 +1,779 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language british
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style british
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Modeling Global Warming
+\end_layout
+
+\begin_layout Date
+November 2017
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Donald Trump claimed that climate change was a hoax created by China, we
+ would like to find evidence to prove him wrong.
+ In this project, we use regression analysis to model the climate difference
+ in US.
+ The main road map is the following:
+\end_layout
+
+\begin_layout Itemize
+First clean and visualize data from small set to large, and try to make
+ data less noisy and obtain long term trends.
+\end_layout
+
+\begin_layout Itemize
+Second, using historical data to predict future temperatures.
+\end_layout
+
+\begin_layout Itemize
+Third, we want to investigate extremity of temperatures rather than just
+ warming.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The data is obtained from the National Centers for Environmental Information
+ (NCEI).
+ It is stored in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+data.csv
+\end_layout
+
+\end_inset
+
+, contains daily maximum and minimum temperatures in 21 US cities from 1961
+ to 2015.
+\end_layout
+
+\begin_layout Section
+Model one city's temperatures
+\end_layout
+
+\begin_layout Standard
+We aimed to see if there is any trend over the years, our schema is to fit
+ a ploynomial for 
+\begin_inset Formula $(x^{(i)},y^{(i)}),$
+\end_inset
+
+where 
+\begin_inset Formula $x^{(i)}$
+\end_inset
+
+is year like 1997, 
+\begin_inset Formula $y^{(i)}$
+\end_inset
+
+is temperature in Celsius.
+ Specifically we estimate 
+\begin_inset Formula $y$
+\end_inset
+
+ through:
+\begin_inset Formula 
+\[
+y=\beta\cdot f(x)+\epsilon
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice 
+\begin_inset Formula $f(x)$
+\end_inset
+
+ is determined by the degree of polynomials, it captures the complexity
+ of models.
+ To avoid overfitting, we evaluate models by computering 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ as follows: 
+\begin_inset Formula 
+\[
+R^{2}=1-\frac{\sum_{i=1}^{n}(y^{(i)}-\hat{y}^{(i)})^{2}}{\sum_{i=1}^{n}(y^{(i)}-\overline{y})^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The training set is from 1961 to 2009, we now grasp training data from two
+ methods:
+\end_layout
+
+\begin_layout Itemize
+One is randomly select one day (10, January) in one particular city .
+ Figure for polynomial fitting.
+\end_layout
+
+\begin_layout Itemize
+Another way is to computer average temperature of each year.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig_1"
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pasted1.png
+	width 7cm
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename pasted2.png
+	width 7cm
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The outcome in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig_1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ leads us to the following observations:
+\end_layout
+
+\begin_layout Enumerate
+Choosing specified day doesn't fit as much well as average temperature,
+ from figures above, the latter fits more well, and R2 is large 
+\begin_inset Formula $0.18>0.05$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Because there are a lot of other affects except year, so year does not explain
+ quite much.
+ Also, the specific day plot is more noisy.
+\end_layout
+
+\begin_layout Enumerate
+In fact, the latter one can support the claim (global warming), the slope
+ is obversely larger than 
+\begin_inset Formula $0$
+\end_inset
+
+, and the 
+\begin_inset Formula $se$
+\end_inset
+
+ is 
+\begin_inset Formula $0.3<0.5$
+\end_inset
+
+, so the trend is not by chance.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Incorporating more cities
+\end_layout
+
+\begin_layout Standard
+One way to decrease noise is adding data.
+ Now we includes 20 more cities and do the same curve fitting.
+\end_layout
+
+\begin_layout Enumerate
+This plot 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ fits data quite well, it has much lager 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ 
+\begin_inset Formula $(0.74)$
+\end_inset
+
+, and 
+\begin_inset Formula $se$
+\end_inset
+
+ is smaller 
+\begin_inset Formula $(0.08)$
+\end_inset
+
+, so evidently we can see the trend, so it strongly supports the claim.
+\end_layout
+
+\begin_layout Enumerate
+Because if we average on the nation level, the noise can effectively be
+ lowed.
+ 
+\end_layout
+
+\begin_layout Enumerate
+So if only 3 cities, it could not fit that well, if 100, it could fit much
+ more due to the fact of Law of Large Number.
+ 
+\end_layout
+
+\begin_layout Enumerate
+If all the cities adjacent, that is a biased sample which doesn't give us
+ more help than only New England, therefore the result will fit not much
+ well.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "2"
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+More data fitting
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pasted12.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Fitting after moving average
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pasted13.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that moving average is another method to decrease noise and emphasize
+ general trends over local fluctuation.We computer moving average as follows:
+ suppose 
+\begin_inset Formula $y=[1,2,3,4,5]$
+\end_inset
+
+, then output is 
+\begin_inset Formula $[\frac{1}{1},\frac{1+2}{2},\frac{1+2+3}{3},\frac{2+3+4}{3},\frac{3+4+5}{3}]$
+\end_inset
+
+.
+ After this operation, the outcome of fitting shows in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+This plot fits data more well, 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ is high than previous ones, it interprets 
+\begin_inset Formula $90\%$
+\end_inset
+
+ of y, and 
+\begin_inset Formula $se$
+\end_inset
+
+ is smaller.
+ 
+\end_layout
+
+\begin_layout Enumerate
+By moving the average, we can decrease noise not only between areas, but
+ between adjacent years.
+ 
+\end_layout
+
+\begin_layout Section
+Prediction and test
+\end_layout
+
+\begin_layout Standard
+We generate 
+\begin_inset Formula $1,2,20$
+\end_inset
+
+ degree of ploynomials for the training set, the result is 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig_4"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Then we using temperatures from 2011 to 2015 to evaluate models and related
+ metric is 
+\shape italic
+root mean square error
+\shape default
+ 
+\shape italic
+(RMSE):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+RMSE=\sqrt[]{\frac{\sum_{i=1}^{n}(y_{i}-e_{i})^{2}}{n}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig_4"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+1,2,20 degree of polynomials
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pasted8.png
+	width 5cm
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename pasted9.png
+	width 5cm
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename pasted10.png
+	width 5cm
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The prediction result is in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig_5"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig_5"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Predictions in test set
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pasted5.png
+	width 5cm
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename pasted6.png
+	width 5cm
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename pasted7.png
+	width 5cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Some conclusions from the test:
+\end_layout
+
+\begin_layout Enumerate
+Model_1 is better than model_2, and model_2 is better than model_3.
+ And 
+\begin_inset Formula $rmse$
+\end_inset
+
+ is model_1 < model_2 < model_3.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Model_1 is best, model_3 is the worst, because model_3 has higher degree,
+ and cause overfitting problem.
+\end_layout
+
+\begin_layout Enumerate
+It’s basically worse when increase model complexity, because that model
+ using much noisy data.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Extreme temperatures
+\end_layout
+
+\begin_layout Standard
+The consequence of global warming includes extreme temperatures, like being
+ very hot or very cold.
+ We measure the standard deviation to model this affect.
+ We expect that over time the standard deviation increases.
+\end_layout
+
+\begin_layout Standard
+We computer the moving average of 
+\begin_inset Formula $std$
+\end_inset
+
+ from 1960 to 2010, surprisingly, the following figure does not support
+ our claim, the 
+\begin_inset Formula $std$
+\end_inset
+
+ has minor decreasing trend.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "fig"
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename pasted11.png
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
